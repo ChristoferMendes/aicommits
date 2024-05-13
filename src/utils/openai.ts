@@ -139,7 +139,8 @@ export const generateCommitMessage = async (
 	maxLength: number,
 	type: CommitType,
 	timeout: number,
-	proxy?: string
+	proxy?: string,
+	conventionalType?: string
 ) => {
 	try {
 		const completion = await createChatCompletion(
@@ -149,7 +150,7 @@ export const generateCommitMessage = async (
 				messages: [
 					{
 						role: 'system',
-						content: generatePrompt(locale, maxLength, type),
+						content: generatePrompt(locale, maxLength, type, conventionalType),
 					},
 					{
 						role: 'user',

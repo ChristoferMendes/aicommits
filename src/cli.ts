@@ -42,6 +42,12 @@ cli(
 				description: 'Type of commit message to generate',
 				alias: 't',
 			},
+			conventionalType: {
+				type: String,
+				description:
+					'Conventional commit type to generate if the type generated is not precise',
+				alias: 'c',
+			}
 		},
 
 		commands: [configCommand, hookCommand],
@@ -61,6 +67,7 @@ cli(
 				argv.flags.exclude,
 				argv.flags.all,
 				argv.flags.type,
+				argv.flags.type ? argv.flags.conventionalType : undefined,
 				rawArgv
 			);
 		}

@@ -7,6 +7,8 @@ const commitTypeFormats: Record<CommitType, string> = {
 const specifyCommitFormat = (type: CommitType) =>
 	`The output response must be in format:\n${commitTypeFormats[type]}`;
 
+const insertConventionalCommitType = (conventionalCommitType: string) => `With the type: ${conventionalCommitType}`;
+
 const commitTypes: Record<CommitType, string> = {
 	'': '',
 
@@ -41,14 +43,15 @@ const commitTypes: Record<CommitType, string> = {
 export const generatePrompt = (
 	locale: string,
 	maxLength: number,
-	type: CommitType
+	type: CommitType,
+	conventionalType?: string
 ) =>
 	[
 		'Generate a concise git commit message written in present tense for the following code diff with the given specifications below:',
 		`Message language: ${locale}`,
 		`Commit message must be a maximum of ${maxLength} characters.`,
 		'Exclude anything unnecessary such as translation. Your entire response will be passed directly into git commit.',
-		commitTypes[type],
+		conventionalType ? insertConventionalCommitType(conventionalType) : commitTypes[type],
 		specifyCommitFormat(type),
 	]
 		.filter(Boolean)

@@ -115,6 +115,14 @@ const configParsers = {
 
 		return parsed;
 	},
+	conventionalType(type?: string) {
+		if (!type) {
+			return '';
+		}
+
+		parseAssert('conventionalType', type, 'Cannot be empty');
+		return type;
+	}
 } as const;
 
 type ConfigKeys = keyof typeof configParsers;

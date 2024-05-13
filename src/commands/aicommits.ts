@@ -22,6 +22,7 @@ export default async (
 	excludeFiles: string[],
 	stageAll: boolean,
 	commitType: string | undefined,
+	conventionalType: string | undefined,
 	rawArgv: string[]
 ) =>
 	(async () => {
@@ -58,6 +59,7 @@ export default async (
 				env.https_proxy || env.HTTPS_PROXY || env.http_proxy || env.HTTP_PROXY,
 			generate: generate?.toString(),
 			type: commitType?.toString(),
+			conventionalType: conventionalType?.toString(),
 		});
 
 		const s = spinner();
@@ -73,7 +75,8 @@ export default async (
 				config['max-length'],
 				config.type,
 				config.timeout,
-				config.proxy
+				config.proxy,
+				config.conventionalType
 			);
 		} finally {
 			s.stop('Changes analyzed');
